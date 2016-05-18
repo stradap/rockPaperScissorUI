@@ -1,0 +1,119 @@
+<div class="jumbotron" class="col-md-12">
+  <p>Welcome to the Rock <i class="fa fa-hand-rock-o fa-2x" aria-hidden="true"></i>, Paper <i class="fa fa-hand-paper-o fa-2x" aria-hidden="true"></i> , Scissor <i class="fa fa-hand-scissors-o fa-2x" aria-hidden="true"></i> game
+  </p>
+  <p class="lead">
+    <img style="border-radius: 100px; height: 100px; width: 150px;" src="images/rockpaperscissor.gif" alt="Rock paper scissor">
+  </p>
+  <h1>Do you wanna play?</h1>
+  <span><h2>CChoose an option and let me see if you can win me</h2></span>
+  <div class="row">
+    <i ng-click="playVSmachine($event)" id="rock" class="fa fa-hand-rock-o fa-2x" ng-class="{ 'fa-3x' : userRock}" aria-hidden="true"></i>
+    <i ng-click="playVSmachine($event)" id="paper" class="fa fa-hand-paper-o fa-2x" ng-class="{ 'fa-3x' : userPaper}" aria-hidden="true"></i>
+    <i ng-click="playVSmachine($event)" id="scissors" class="fa fa-hand-scissors-o fa-2x" ng-class="{ 'fa-3x' : userScissor}" aria-hidden="true"></i>
+  </div>
+  <span><h2>I choose.....</h2></span>
+  <div class="row">
+    <i class="fa fa-hand-rock-o fa-2x" ng-class="{ 'fa-3x' : machineRock}" aria-hidden="true"></i>
+    <i class="fa fa-hand-paper-o fa-2x" ng-class="{ 'fa-3x' : machinePaper}" aria-hidden="true"></i>
+    <i class="fa fa-hand-scissors-o fa-2x" ng-class="{ 'fa-3x' : machineScissor}" aria-hidden="true"></i>
+  </div>
+  <div class="alert alert-success" role="alert">
+    <p id="resultVrsMachine"></p>
+    <i class="fa fa-2x" ng-class="{'fa-smile-o' : won === true , 'fa-frown-o': won === false} "  aria-hidden="true"></i>
+  </div>
+  <div class="alert alert-info" role="alert" ng-show="spinner">
+    <div class="loading-bar-container" role="alert"></div> 
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">Upload a championship file</div>
+      <div class="panel-body">
+        <div>
+          <i class="fa fa-upload" aria-hidden="true">Upload the file and get the winner</i>
+          <input type="file" file-model="myFile" />
+          <button ng-click="uploadFile()" class="btn btn-info" style="float:right">Upload</button>
+          <div>
+            <p>Winner of tournament:<i class="fa fa-trophy fa-2x" aria-hidden="true">{{winnerTournament}}</i>
+            </p>
+          </div>
+        </div>
+        <div>
+          <h3>Need help with tournament structure</h3>
+          <a href="https://drive.google.com/folderview?id=0B5ba_PkdCsTyZWkxQmZMM1RqQ0E&usp=sharing">Example of tournament</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Enter the first and second position of the tournament</h3>
+      </div>
+      <div class="panel-body">
+        <form name="userForm" ng-submit="submitForm()">
+          <div class="form-group">
+            <label>First position</label>
+            <input type="text" name="first" class="form-control" ng-model="user.first" required>
+            <span ng-show="errorFirst">{{errorFirst}}</span>
+          </div>
+          <div class="form-group">
+            <label>Second position</label>
+            <input type="text" name="second" class="form-control" ng-model="user.second" required>
+            <span ng-show="errorSecond">{{errorSecond}}</span>
+          </div>
+          <div ng-show="messageForm" class="alert alert-success" role="alert"> {{message}}</div>
+          <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Retrieves the top players of all championships</h3>
+      </div>
+      <div class="panel-body">
+        <label>Number:
+          <input type="number" name="input" ng-model="counter" min="1" max="999" required>
+          <br/>
+        </label>
+        <button ng-click="getTop()" class="btn btn-primary" type="button">
+          Get <span class="badge">{{counter}} players</span>
+        </button>
+        <!--//<button n type="button" class="btn btn-danger">Get top: {{counter}}</button>-->
+        <div>
+          <span>Position</span>-<span>Name</span>
+          <div ng-repeat="value in topWinners">
+            <span>{{$index + 1}}</span> : <span>{{value}}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Top 10 players</h3>
+      </div>
+      <div class="panel-body">
+        <span>Position</span>:<span>Name</span>
+        <div ng-repeat="value in topWinnersList">
+          <span>{{$index + 1}}</span> : <span>{{value}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Warning, you are sure of remove the list of top players</h3>
+      </div>
+      <div class="panel-body">
+        <button ng-click="deleteAll()" type="button" class="btn btn-danger">Delete history</button>
+        <div ng-show="messageDeleteShow" class="alert alert-success" role="alert"> {{messageDelete}}</div>
+      </div>
+    </div>

@@ -100,7 +100,7 @@ myApp.controller('MainCtrl', function($scope, $http, $timeout, fileUpload) {
           $scope.message = result;
         }
         else {
-          if (result.length > 0) {
+          if (result.players.length > 0) {
             $scope.topWinners = result.players;
             $scope.getTopList();
             $scope.spinner = false;
@@ -141,7 +141,7 @@ myApp.controller('MainCtrl', function($scope, $http, $timeout, fileUpload) {
   };
 
   $scope.playVSmachine = function(event) {
-    $scope.won = true;
+    $scope.won = false;
     $scope.machineRock = false;
     $scope.machinePaper = false;
     $scope.machineScissor = false;

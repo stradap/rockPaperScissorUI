@@ -46,11 +46,11 @@ myApp.controller('MainCtrl', function($scope, $http, $timeout, fileUpload) {
         }
       })
       .success(function(result) {
-        if (result === 'fail') {
+        if (result.status === 'fail') {
           $scope.message = result;
         }
         else {
-          $scope.message = 'All the data save ' + result;
+          $scope.message = 'All the data save ' + result.status;
           $scope.messageForm = true;
           $scope.user = {};
           $scope.getTopList();

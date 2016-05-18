@@ -101,7 +101,7 @@ myApp.controller('MainCtrl', function($scope, $http, $timeout, fileUpload) {
         }
         else {
           if (result.length > 0) {
-            $scope.topWinners = result;
+            $scope.topWinners = result.players;
             $scope.getTopList();
             $scope.spinner = false;
           }
@@ -128,8 +128,8 @@ myApp.controller('MainCtrl', function($scope, $http, $timeout, fileUpload) {
           $scope.message = result;
         }
         else {
-          if (result.length > 0) {
-            $scope.topWinnersList = result;
+          if (result.players.length > 0) {
+            $scope.topWinnersList = result.players;
             $scope.spinner = false;
           }
           else {

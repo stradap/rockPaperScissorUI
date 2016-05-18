@@ -63,27 +63,37 @@ myApp.controller('MainCtrl', function($scope, $http, $timeout, fileUpload) {
   };
 
   $scope.deleteAll = function() {
-    $scope.spinner = true;
-    $http({
-        method: 'GET',
-        url: 'https://web-api-spr-stradajp.c9users.io/api/championship/deleteAll'
-      })
-      .success(function(result) {
-        if (result === 'fail') {
-          $scope.message = result;
-        }
-        else {
-          $scope.messageDelete = 'All the data was delete';
-          $scope.messageDeleteShow = true;
-          $scope.topWinners = {};
-          $scope.topWinnersList = {};
-          $timeout(function() {
-            $scope.messageDeleteShow = false;
-            $scope.spinner = false;
-          }, 2000);
-
-        }
-      });
+    var answer = confirm("Are you sure you want to delete all the history ?");
+    if (answer) {
+      event.preventDefault();
+      $scope.spinner = true;
+      $http({
+          method: 'GET',
+          url: 'https://web-api-spr-stradajp.c9users.io/api/championship/deleteAll'
+        })
+        .success(function(result) {
+          if (result === 'fail') {
+            $scope.message = result;
+          }
+          else {
+            $scope.messageDelete = 'All the data was delete';
+            $scope.messageDeleteShow = true;
+            $scope.topWinners = {};
+            $scope.topWinnersList = {};
+            $timeout(function() {
+              $scope.messageDeleteShow = false;
+              $scope.spinner = false;
+            }, 2000);
+          }
+        });
+    }
+    else {
+      $scope.messageDelete = 'Nothing delete';
+      $scope.messageDeleteShow = true;
+      $timeout(function() {
+        $scope.messageDeleteShow = false;
+      }, 2000);
+    }
   };
 
   $scope.getTop = function() {
